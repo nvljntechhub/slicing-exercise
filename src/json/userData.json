@@ -1,0 +1,13 @@
+{
+  "userId": "nava1998",
+  "firstName": "Joe",
+  "lastName": "Jackson",
+  "password": "Pass@1234",
+  "gender": "male",
+  "age": 28,
+  "address": {
+    "streetAddress": "101",
+    "city": "San Diego",
+    "state": "CA"
+  }
+}

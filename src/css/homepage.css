@@ -1,0 +1,35 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu&display=swap");
+
+* {
+  font-family: "Ubuntu", sans-serif;
+}
+
+.homepageContainer {
+  background-image: url(../assets/images/background.jpg);
+  background-size: cover;
+  width: 100%;
+  height: auto;
+  min-height: 100vh;
+}
+
+.logo {
+  padding: 40px;
+  border-radius: 10px;
+}
+
+.dashboardHeaderContainer {
+  margin: auto;
+  width: 50%;
+  text-align: center;
+}
+.dashboardHeader {
+  font-size: 100px;
+  margin-left: 20px;
+}
+
+.titleBottomBorder {
+  margin: auto;
+  justify-content: s center;
+  border-bottom: 6px solid #000000;
+  width: 70%;
+}
