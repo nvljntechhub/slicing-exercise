@@ -4,22 +4,22 @@ import {
   Box,
   Button,
   Checkbox,
-  Container,
   FormControlLabel,
   Grid,
   Link,
   Paper,
   Stack,
+  Typography,
 } from "@mui/material";
-import Logo from "../../assets/images/log.png";
+import Logo from "src/assets/images/logo.png";
 import * as Yup from "yup";
 import { useState } from "react";
 import { useSnackbar } from "notistack";
 import { useNavigate } from "react-router-dom";
-import FormikControl from "../../components/InputControls/FormikControl";
+import FormikControl from "src/components/InputControls/FormikControl";
 import { Form, Formik } from "formik";
-import "../../css/login.css";
-import { help, regularExpressions } from "../../utils/properties";
+import "src/css/login.css";
+import { help, regularExpressions } from "src/utils/properties";
 
 // const style = {
 //   position: "absolute" as "absolute",
@@ -55,40 +55,8 @@ const Register = (props: Props) => {
       .required("Confirm password " + help.VALUE_REQUIRED),
   });
 
-  const onSubmit = async () => {
-    // const { ...rest } = values;
-    // const input = {
-    //   ...rest,
-    //   loginType: userType.loginType,
-    // };
-    // const userEmail = values.email;
-    // logIn(input).then(
-    //   (response: any) => {
-    //     getAdminByEmail(userEmail).then(
-    //       (response: any) => {
-    //         localStorage.setItem(
-    //           "loggedInAdmin",
-    //           JSON.stringify({
-    //             id: response.id,
-    //             firstName: response.firstName,
-    //             lastName: response.lastName,
-    //             email: values.email,
-    //             phoneNumber: response.phoneNumber,
-    //           })
-    //         );
-    //       },
-    //       (error: any) => {
-    //         setErrorMsg("Cannot get the Logged in user details");
-    //       }
-    //     );
-    //     enqueueSnackbar(response.data.message, { variant: "success" });
-    //     navigate("/subject");
-    //   },
-    //   (error) => {
-    //     const errMsg = errorHandler(error);
-    //     setErrorMsg(errMsg);
-    //   }
-    // );
+  const onSubmit = async (values) => {
+    console.log("values", values);
   };
   return (
     <Box className="loginContainer">
@@ -100,159 +68,145 @@ const Register = (props: Props) => {
             sx={{ width: "100px", height: "100px" }}
             variant="circular"
           />
-          <Grid item xs={12}>
-            <Box className="loginHeaderContainer">
-              <div className="loginHeader">
+        </Grid>
+        <Grid item xs={12}>
+          <Grid container textAlign="center" justifyContent="center">
+            <Grid item xs={12}>
+              <Typography fontSize="100px">
                 Register to <b>myApp</b>
-              </div>
-              <div className="titleBottomBorder"></div>
-            </Box>
+              </Typography>
+            </Grid>
+            <Grid item xs={2} className="titleBottomBorder"></Grid>
           </Grid>
-          <Grid item xs={12}>
-            <Box className="formContainer">
-              <Grid container>
-                <Grid item xs={12}>
-                  <Formik
-                    initialValues={initialValues}
-                    validationSchema={validationSchema}
-                    onSubmit={onSubmit}
-                  >
-                    {() => (
-                      <Form id="PasswordVerification">
-                        <Grid container rowSpacing={1} columnSpacing={1}>
-                          <Grid item xs={12} sx={{ mb: 1 }}>
-                            <Stack sx={{ width: "100%" }}>
-                              {errorMsg && (
-                                <Alert severity="error">{errorMsg}</Alert>
-                              )}
-                            </Stack>
-                          </Grid>
-                          <Grid item xs={12}>
-                            <Grid container>
-                              <Grid item xs={2} className="loginInputLabel">
-                                User ID*
-                              </Grid>
-                              <Grid item xs={6} className="loginInput">
-                                <FormikControl
-                                  control="input"
-                                  type="text"
-                                  name="userId"
-                                  fullWidth
-                                  InputProps={{
-                                    style: {
-                                      borderRadius: 0,
-                                      color: "#000000",
-                                      backgroundColor: "#ffffff",
-                                    },
-                                  }}
-                                  component={Paper}
-                                />
-                              </Grid>
-                            </Grid>
-                          </Grid>
-                          <Grid item xs={12}>
-                            <Grid container>
-                              <Grid item xs={2} className="loginInputLabel">
-                                Password*
-                              </Grid>
-                              <Grid item xs={6}>
-                                <FormikControl
-                                  control="input"
-                                  type="password"
-                                  name="password"
-                                  fullWidth
-                                  InputProps={{
-                                    style: {
-                                      borderRadius: 0,
-                                    },
-                                  }}
-                                  component={Paper}
-                                />
-                              </Grid>
-                            </Grid>
-                          </Grid>
-                          <Grid item xs={12}>
-                            <Grid container>
-                              <Grid item xs={2} className="loginInputLabel">
-                                Confirm Password*
-                              </Grid>
-                              <Grid item xs={6}>
-                                <FormikControl
-                                  control="input"
-                                  type="password"
-                                  name="confirmPassword"
-                                  fullWidth
-                                  InputProps={{
-                                    style: {
-                                      borderRadius: 0,
-                                    },
-                                  }}
-                                  component={Paper}
-                                />
-                              </Grid>
-                            </Grid>
-                          </Grid>
-                          <Grid item xs={12}>
-                            <Grid container>
-                              <Grid item xs={2}></Grid>
-                              <Grid item xs={6}>
-                                <FormControlLabel
-                                  control={
-                                    <Checkbox
-                                      value="remember"
-                                      color="primary"
-                                    />
-                                  }
-                                  label="Remember me"
-                                />
-                              </Grid>
-                            </Grid>
-                          </Grid>
-                          <Grid item xs={12}>
-                            <Grid container>
-                              <Grid item xs={2}></Grid>
-                              <Grid item xs={6}>
-                                <Button
-                                  type="submit"
-                                  fullWidth
-                                  variant="contained"
-                                  sx={{
-                                    borderRadius: "0px",
-                                    width: "50%",
-                                  }}
-                                >
-                                  Register
-                                </Button>
-                              </Grid>
-                            </Grid>
-                          </Grid>
-                          <Grid item xs={12}>
-                            <Grid container>
-                              <Grid item xs={2}></Grid>
-                              <Grid
-                                item
-                                alignContent="left"
-                                className="registerAccount"
-                              >
-                                ALready have an account?{" "}
-                                <Link
-                                  href="login"
-                                  variant="body2"
-                                  color="#000000"
-                                >
-                                  Sign In here.
-                                </Link>
-                              </Grid>
-                            </Grid>
-                          </Grid>
-                        </Grid>
-                      </Form>
-                    )}
-                  </Formik>
+        </Grid>
+        <Grid item xs={4.5}></Grid>
+        <Grid item xs={6}>
+          <Formik
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={onSubmit}
+          >
+            {() => (
+              <Form id="PasswordVerification">
+                <Grid container rowSpacing={1} columnSpacing={1}>
+                  <Grid item xs={12} sx={{ mb: 1, mt: 2 }}>
+                    <Stack sx={{ width: "100%" }}>
+                      {errorMsg && <Alert severity="error">{errorMsg}</Alert>}
+                    </Stack>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Grid container>
+                      <Grid item xs={3} className="loginInputLabel">
+                        User ID*
+                      </Grid>
+                      <Grid item xs={6} className="loginInput">
+                        <FormikControl
+                          control="input"
+                          type="text"
+                          name="userId"
+                          fullWidth
+                          InputProps={{
+                            style: {
+                              borderRadius: 0,
+                              color: "#000000",
+                              backgroundColor: "#ffffff",
+                            },
+                          }}
+                          component={Paper}
+                        />
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Grid container>
+                      <Grid item xs={3} className="loginInputLabel">
+                        Password*
+                      </Grid>
+                      <Grid item xs={6}>
+                        <FormikControl
+                          control="input"
+                          type="password"
+                          name="password"
+                          fullWidth
+                          InputProps={{
+                            style: {
+                              borderRadius: 0,
+                            },
+                          }}
+                          component={Paper}
+                        />
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Grid container>
+                      <Grid item xs={3} className="loginInputLabel">
+                        Confirm Password*
+                      </Grid>
+                      <Grid item xs={6}>
+                        <FormikControl
+                          control="input"
+                          type="password"
+                          name="confirmPassword"
+                          fullWidth
+                          InputProps={{
+                            style: {
+                              borderRadius: 0,
+                            },
+                          }}
+                          component={Paper}
+                        />
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Grid container>
+                      <Grid item xs={3}></Grid>
+                      <Grid item xs={6}>
+                        <FormControlLabel
+                          control={
+                            <Checkbox value="remember" color="primary" />
+                          }
+                          label="Remember me"
+                        />
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Grid container>
+                      <Grid item xs={3}></Grid>
+                      <Grid item xs={6}>
+                        <Button
+                          type="submit"
+                          fullWidth
+                          variant="contained"
+                          sx={{
+                            borderRadius: "0px",
+                            width: "50%",
+                          }}
+                        >
+                          Register
+                        </Button>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Grid container>
+                      <Grid item xs={1}></Grid>
+                      <Grid item sx={{ mt: "12px" }}>
+                        <Typography>
+                          Already have an account?{" "}
+                          <Link href="login" variant="body2" color="#000000">
+                            Sign In here.
+                          </Link>
+                        </Typography>
+                      </Grid>
+                    </Grid>
+                  </Grid>
                 </Grid>
-              </Grid>
-            </Box>
-          </Grid>
+              </Form>
+            )}
+          </Formik>
         </Grid>
       </Grid>
     </Box>

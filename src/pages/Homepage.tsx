@@ -10,25 +10,30 @@ import {
   Link,
   MenuItem,
   Pagination,
+  Paper,
   Select,
   SelectChangeEvent,
   TextField,
   Typography,
 } from "@mui/material";
-import Logo from "../assets/images/log.png";
-import "../css/homepage.css";
-import { MenuTwoTone } from "@mui/icons-material";
+import Logo from "src/assets/images/logo.png";
+import "src/css/homepage.css";
 import { useEffect, useState } from "react";
-import { genderOption, pagination } from "../utils/properties";
-import clientData from "../json/membersData.json";
-import { Client, Gender } from "../interface/Clients";
-import ContactProfile from "../assets/images/Avatar.svg";
+import { genderOption, pagination } from "src/utils/properties";
+import clientData from "src/json/membersData.json";
+import { Client } from "src/interface/Clients";
+import ContactProfile from "src/assets/images/Avatar.svg";
+import HeaderUserbox from "src/pages/UserBox";
+import { Cookies } from "react-cookie";
 
 type Props = {};
 
 function Homepage({}: Props) {
   const [clients, setClients] = useState<Client[]>();
-  const [selectedGender, setSelectedGender] = useState(genderOption[0].value);
+  const [selectedGender, setSelectedGender] = useState(genderOption[0].label);
+  const [selectedGenderValue, setSelectedGenderValue] = useState(
+    genderOption[0].value
+  );
   const [countryOptions, setCountryOptions] = useState<
     { label: string; key: string }[]
   >([]);
@@ -41,8 +46,12 @@ function Homepage({}: Props) {
   const [count, setCount] = useState<number>(pagination.COUNT);
 
   useEffect(() => {
+    const cookies = new Cookies();
+    const userId = cookies.get("userId");
+    const password = cookies.get("password");
+
     getCountryDropdownOptions();
-    list(page, limit, selectedGender, selectedCountry.label);
+    list(page, limit, selectedGender, selectedCountry?.label);
   }, []);
 
   const list = (
@@ -51,34 +60,26 @@ function Homepage({}: Props) {
     gender: string,
     country: string
   ) => {
-    console.log("clientData", clientData);
-    console.log("identify", gender, country);
+    let filteredList = clientData;
 
-    if (!gender || country === "Not Selected") {
-      // Calculate start and end indices
-      const startIndex = (page - 1) * limit;
-      console.log("startIndex", startIndex);
-
-      const endIndex = startIndex + limit;
-
-      // Get paginated data
-      const paginatedData = clientData.slice(startIndex, endIndex);
-      const newCount = Math.floor(clientData.length / pagination.PAGE_LIMIT);
-      console.log("data", paginatedData);
-
-      setClients(paginatedData);
-      setCount(newCount);
-    } else {
-      const filteredList = clientData.filter(
-        (item) => item.country === country && item.gender === gender
-      );
-      setClients(filteredList);
+    if (gender !== "Not Selected") {
+      filteredList = filteredList.filter((item) => item.gender === gender);
     }
 
-    // setClients([filteredList]);
+    if (country !== "Not Selected") {
+      filteredList = filteredList.filter((item) => item.country === country);
+    }
+
+    const startIndex = (page - 1) * limit;
+    const endIndex = startIndex + limit;
+    const paginatedData = filteredList.slice(startIndex, endIndex);
+    const newCount = Math.floor(filteredList.length / limit);
+    setClients(paginatedData);
+    setCount(newCount);
   };
 
   const onGenderSelect = (event: SelectChangeEvent, value: any) => {
+    setSelectedGenderValue(event.target.value);
     setSelectedGender(value.props.children);
     list(page, limit, value.props.children, selectedCountry?.label);
   };
@@ -90,8 +91,8 @@ function Homepage({}: Props) {
       key: "",
     });
 
-    clientData.map((data) => {
-      countryOptionsData.push({ label: data?.country, key: data?.id });
+    clientData.forEach((data) => {
+      countryOptionsData.push({ label: data.country, key: data.id });
     });
 
     const uniqueLabels = new Set(
@@ -100,13 +101,14 @@ function Homepage({}: Props) {
     const uniqueCountryOptionsData = Array.from(uniqueLabels, (label) =>
       countryOptionsData.find((item: any) => item.label === label)
     );
+
     setSelectedCountry(uniqueCountryOptionsData[0]);
     setCountryOptions(uniqueCountryOptionsData);
   };
 
   const handlePageChange = (event: any, newPage: number): void => {
     setPage(newPage);
-    list(newPage, limit, selectedGender, selectedCountry.label);
+    list(newPage, limit, selectedGender, selectedCountry?.label);
   };
 
   return (
@@ -121,19 +123,22 @@ function Homepage({}: Props) {
           />
         </Grid>
         <Grid item xs={1} mt={5}>
-          <MenuTwoTone sx={{ fontSize: "70px" }} />
+          <HeaderUserbox />
+          {/* <MenuTwoTone sx={{ fontSize: "70px" }} /> */}
         </Grid>
       </Grid>
       <Grid container>
-        <Grid item className="dashboardHeader">
+        <Grid item xs={4} className="dashboardHeader">
           My <b>Contacts</b>
         </Grid>
-        <Grid item className="titleBottomBorder"></Grid>
+        <Grid item xs={8}>
+          <div className="titleBottomBorder"></div>
+        </Grid>
         <Grid item xs={12}>
           <Grid
             container
             justifyContent="flex-end"
-            sx={{ pr: 10, pt: 5 }}
+            sx={{ pr: 10 }}
             columnSpacing={2}
           >
             <Grid item minWidth="250px">
@@ -142,7 +147,7 @@ function Homepage({}: Props) {
                 <Select
                   onChange={onGenderSelect}
                   className="input-field"
-                  value={selectedGender}
+                  value={selectedGenderValue}
                 >
                   {genderOption.map((option) => (
                     <MenuItem key={option.value} value={option.value}>
@@ -171,8 +176,8 @@ function Homepage({}: Props) {
               />
             </Grid>
           </Grid>
-          <Grid xs={12}>
-            <Grid container>
+          <Grid item xs={12}>
+            <Grid container component={Paper} minHeight="50vh" marginTop={2}>
               {clients?.map((client) => (
                 <Grid item xs={4} padding={2}>
                   <Card>
@@ -183,7 +188,7 @@ function Homepage({}: Props) {
                         </Grid>
                         <Grid item xs={8}>
                           <Grid container rowGap={1}>
-                            <Grid xs={12}>
+                            <Grid item xs={12}>
                               <Typography
                                 sx={{ fontSize: 30 }}
                                 color="text.secondary"
@@ -192,21 +197,23 @@ function Homepage({}: Props) {
                                 {client.firstName + " " + client.lastName}
                               </Typography>
                             </Grid>
-                            <Grid xs={12}>
+                            <Grid item xs={12}>
                               <Link
                                 sx={{ cursor: "pointer", fontSize: "20px" }}
                               >
                                 {client?.email}
                               </Link>
                             </Grid>
-                            <Grid xs={12}>
+                            <Grid item xs={12}>
                               <Link
                                 sx={{ fontSize: "20px", cursor: "pointer" }}
                               >
                                 {client?.phoneNo}
                               </Link>
                             </Grid>
-                            <Grid xs={12}>{client?.address}</Grid>
+                            <Grid item xs={12}>
+                              {client?.address}
+                            </Grid>
                           </Grid>
                         </Grid>
                       </Grid>
@@ -215,14 +222,13 @@ function Homepage({}: Props) {
                 </Grid>
               ))}
             </Grid>
-            <Grid container justifyContent="center">
+            <Grid container justifyContent="center" padding={5}>
               <Grid item>
                 <Pagination
                   count={count}
                   onChange={handlePageChange}
                   variant="outlined"
                 />
-                <Grid item></Grid>
               </Grid>
 
               {/* <TablePagination

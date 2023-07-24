@@ -13,7 +13,7 @@
 }
 
 .logo {
-  padding: 40px;
+  padding: 20px;
   border-radius: 10px;
 }
 
@@ -24,12 +24,11 @@
 }
 .dashboardHeader {
   font-size: 100px;
-  margin-left: 20px;
+  padding-left: 30px;
 }
 
 .titleBottomBorder {
-  margin: auto;
-  justify-content: s center;
+  margin-top: 90px;
   border-bottom: 6px solid #000000;
-  width: 70%;
+  width: 100%;
 }

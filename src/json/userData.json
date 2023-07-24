@@ -1,13 +1,24 @@
 {
   "userId": "nava1998",
+  "salutation": "Mr.",
   "firstName": "Joe",
   "lastName": "Jackson",
-  "password": "Pass@1234",
+  "email": "nava@gmail.com",
+  "mobileNumber": "+94715567899",
+  "address": "32, Boswell place, Wellawatta, Colombo",
+  "postalCode": "10350",
+  "nationality": "Srilankan",
+  "dob": "02.12.1998",
   "gender": "male",
-  "age": 28,
-  "address": {
-    "streetAddress": "101",
-    "city": "San Diego",
-    "state": "CA"
+  "maritialStatus": "Single",
+  "password": "Pass@1234",
+  "hobiesAndInterests": "Video games",
+  "favouriteSport": "Cricket",
+  "preferredMusicGenres": "Melody",
+  "preferredMovieTVShows": "Prime time",
+  "spouseDetails": {
+    "salutation": "",
+    "firstName": "",
+    "lastName": ""
   }
 }

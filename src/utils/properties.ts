@@ -31,27 +31,19 @@ export const help = {
   INVALID_EMAIL_ADDRESS: "Invalid email address!",
   TOO_SHORT: "Value is too short",
   VALUE_REQUIRED: "cannot be blank",
-  ENTER_EMAIL: "Please enter the email address",
-  CHECK_YOUR_EMAIL: "Summary Sent to an email. Please check your email!",
-  MCQ_ANSWER_NOT_CHECKED: "One answer should be selected!",
-  CHECKBOX_ANSWER_NOT_CHECKED: "Select Atleast two correct answer!",
-  QUESTION_TITLE_REQUIRED: "Question title cannot be blank!",
-  ANSWER_TITLE_REQUIRED: "Answer title cannot be blank!",
-  FOUR_ANSWERS_REQUIRED: "Need at least 4 answers",
-  FILE_FORMAT_UNSUPPORTED: "Unsupported  Format!",
-  FILE_SIZE_BIG: "File Size is too large!",
-  SUBJECT_SELECTION_REQUIRED: "Subject must be selected!",
-  ACTIVITY_SELECTION_REQUIRED: "Activity must be selected!",
 };
 
 export const successMessages = {
   LOGGEDIN_SUCCEFULL: "logged in successfull",
+  REGISTRATION_SUCCESSFULL: "User registered successfully",
+  LOGGEDOUT_SUCCESSFULLY: "Logout successfully",
 };
 
 export const errorMessages = {
   YOU_CANT_DELETE_BY_YOU: "You cannot Delete your own account",
   WRONG_USER_ID_ENTERED: "user id entered wrongly!",
   WRONG_PASSWORD_ENTERED: "password entered wrongly!",
+  THIS_USERID_ALREADY_EXIST: "User id already exist",
 };
 
 export const dataTimeOut = {
@@ -80,8 +72,7 @@ export const paths = {
   LOG_IN: "/login",
   REGISTER: "/register",
   DASHBOARD: "/dashboard",
-  QUESTIONS: "/questions",
-  ACITIVITY_EXAM: "/activity-exam",
+  PROFILE: "/basic-profile",
 };
 
 export const pagination = {
@@ -124,6 +115,21 @@ export const countryOptions = [
   {
     label: "Canada",
     value: "3",
+  },
+];
+
+export const salutations = [
+  {
+    label: "Not Selected",
+    value: "",
+  },
+  {
+    label: "Mr.",
+    value: "1",
+  },
+  {
+    label: "Ms",
+    value: "2",
   },
 ];
 

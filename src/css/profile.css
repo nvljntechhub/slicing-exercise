@@ -1,0 +1,21 @@
+.profileContainer {
+  background-image: url(../assets/images/profile-bg.jpg);
+  background-size: cover;
+  width: 100%;
+  height: auto;
+  min-height: 100vh;
+}
+
+.profileHeader {
+  font-size: 80px;
+}
+
+.titleBottomBorder {
+  margin-top: 90px;
+  border-bottom: 6px solid #000000;
+  width: 100%;
+}
+
+.profileBody {
+  padding-left: 100px;
+}
