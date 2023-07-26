@@ -23,7 +23,9 @@ import userData from "src/json/userData.json";
 type Props = {};
 
 function Update({}: Props) {
-  const [selectedSalutation, setSelectedSalutation] = useState("");
+  const [selectedSalutation, setSelectedSalutation] = useState(
+    userData.salutation
+  );
   const [errorMsg, setErrorMsg] = useState("");
   const [initialValues] = useState({
     salutation: userData.salutation,

@@ -206,7 +206,11 @@ const SignIn = (props: Props) => {
                       <Grid item sx={{ mt: "12px" }}>
                         <Typography>
                           No account?{" "}
-                          <Link href="register" variant="body2" color="#000000">
+                          <Link
+                            href={paths.REGISTER}
+                            variant="body2"
+                            color="#000000"
+                          >
                             Register here.
                           </Link>
                         </Typography>

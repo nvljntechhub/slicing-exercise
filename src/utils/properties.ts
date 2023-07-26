@@ -12,17 +12,6 @@ export const regularExpressions = {
 
 export const TIME_OUT = 8000;
 
-export const modules = {
-  SUBJECT: "Subject",
-  LEVEL: "Level",
-  ACTIVITY: "Activity",
-  HOME_WORK: "Home work",
-  LERNING_RESOURCES: "Learning resources",
-  PLACEMENT_QUESTION: "Placement Question",
-  ANSWER: "Answer",
-  ACTIVITY_EXAM: "Activity Exam",
-};
-
 export const help = {
   PASSWORD_HELP:
     "Must Contain 8 or more characters, with a mix of uppercase, lowercase letters, numbers &symbols(!, @, #, $, %)",
